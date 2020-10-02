@@ -93,3 +93,10 @@ describe("Vector Object Tests", () => {
     });
   });
 });
+
+describe("Version Tests", () => {
+  it("Should return a vector's CVSS Version", () => {
+    const vector = CVSS("CVSS:3.0/AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N");
+    expect(vector.getVersion()).toMatch(/3.0/);
+  })
+});
