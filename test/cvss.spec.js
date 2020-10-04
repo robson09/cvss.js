@@ -101,12 +101,17 @@ describe("Version Tests", () => {
   });
 
   it("Should use version 3.0 if version number not specified", () => {
-    const vector =  CVSS("CVSS: /AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N");
+    const vector =  CVSS("CVSS:undefined/AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N");
     expect(vector.getVersion()).toMatch(/3.0/);
   });
 
-  it("Should use version 3.0 if version number is smaller than 3.0", () => {
-    const vector = CVSS("CVSS:3.0/AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N");
-    expect(vector.getVersion()).toMatch(/2.0/);
+  it("Should use version 3.1 if version number is 3.1", () => {
+    const vector = CVSS("CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N");
+    expect(vector.getVersion()).toMatch(/3.1/);
+  });
+
+  it("Should use version 3.0 if there is any other version used than 3.0 or 3.1", () => {
+    const vector = CVSS("CVSS:25.34/AV:N/AC:H/PR:H/UI:R/S:U/C:N/I:L/A:N");
+    expect(vector.getVersion()).toMatch(/3.0/);
   });
 });
